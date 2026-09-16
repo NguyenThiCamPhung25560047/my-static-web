@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Static Web App & Mini Game</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .cell {
+            transition: all 0.2s ease-in-out;
+        }
+        .cell:hover {
+            background-color: #334155;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-slate-800 rounded-xl shadow-2xl p-6 border border-slate-700 text-center space-y-5">
+        
+        <!-- Header Section (Core Requirement) -->
+        <div>
+            <h1 class="text-3xl font-bold text-indigo-400">Hello World!</h1>
+            <p class="text-slate-300 text-sm mt-1">Welcome to my interactive static web app.</p>
+        </div>
+
+        <!-- Student Info -->
+        <div class="bg-slate-900/60 p-3 rounded-lg text-xs text-slate-400 flex justify-around border border-slate-700/50">
+            <p><span class="text-slate-200 font-semibold">Student:</span> Nguyen Thi Cam Phung</p>
+            <p><span class="text-slate-200 font-semibold">ID:</span> 25560047</p>
+        </div>
+
+        <!-- Mini Game: Tic-Tac-Toe (Interactive Extra Feature) -->
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+            <h2 class="text-lg font-semibold text-amber-400 mb-2">🎮 Play Tic-Tac-Toe</h2>
+            <p id="status" class="text-xs text-slate-300 mb-3 font-medium">Player X's turn</p>
+            
+            <!-- Game Board -->
+            <div class="grid grid-cols-3 gap-2 max-w-[210px] mx-auto mb-3">
+                <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 0)"></button>
+                <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 1)"></button>
+                <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 2)"></button>
+                <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 3)"></button>
+                <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 4)"></button>
+                <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 5)"></button>
+                <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 6)"></button>
+                <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 7)"></button>
+                <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 8)"></button>
+            </div>
+
+            <button onclick="resetGame()" class="px-3 py-1.5 text-xs bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 rounded-md font-medium transition border border-amber-500/30">
+                🔄 Restart Game
+            </button>
+        </div>
+
+        <!-- Status Tag -->
+        <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-emerald-500/10 text-emerald-400 font-medium border border-emerald-500/20">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Ready for Vercel Deployment
+            </span>
+        </div>
+    </div>
+
+    <!-- Game Logic JavaScript -->
+    <script>
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let isGameActive = true;
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        function makeMove(button, index) {
+            if (board[index] !== "" || !isGameActive) return;
+
+            board[index] = currentPlayer;
+            button.innerText = currentPlayer;
+            button.classList.add(currentPlayer === "X" ? "text-indigo-400" : "text-emerald-400");
+
+            checkResult();
+        }
+
+        function checkResult() {
+            let roundWon = false;
+            for (let i = 0; i < winningConditions.length; i++) {
+                const [a, b, c] = winningConditions[i];
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                document.getElementById("status").innerText = `🎉 Player ${currentPlayer} Wins!`;
+                isGameActive = false;
+                return;
+            }
+
+            if (!board.includes("")) {
+                document.getElementById("status").innerText = "🤝 It's a Draw!";
+                isGameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            document.getElementById("status").innerText = `Player ${currentPlayer}'s turn`;
+        }
+
+        function resetGame() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            isGameActive = true;
+            document.getElementById("status").innerText = "Player X's turn";
+            document.querySelectorAll(".cell").forEach(button => button.innerText = "");
+        }
+    </script>
+</body>
+</html>
