@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Static Web App & Mini Game</title>
+    <title>Static Web App & Mini Game</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -18,7 +18,7 @@
 <body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
     <div class="max-w-md w-full bg-slate-800 rounded-xl shadow-2xl p-6 border border-slate-700 text-center space-y-5">
         
-        <!-- Header Section (Core Requirement) -->
+        <!-- Header Section -->
         <div>
             <h1 class="text-3xl font-bold text-indigo-400">Hello World!</h1>
             <p class="text-slate-300 text-sm mt-1">Welcome to my interactive static web app.</p>
@@ -30,12 +30,12 @@
             <p><span class="text-slate-200 font-semibold">ID:</span> 25560047</p>
         </div>
 
-        <!-- Mini Game: Tic-Tac-Toe (Interactive Extra Feature) -->
+        <!-- Mini Game: Tic-Tac-Toe -->
         <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
             <h2 class="text-lg font-semibold text-amber-400 mb-2">🎮 Play Tic-Tac-Toe</h2>
             <p id="status" class="text-xs text-slate-300 mb-3 font-medium">Player X's turn</p>
             
-            <!-- Game Board -->
+            <!-- Game Board (Đã sửa lại đúng thứ tự ô từ 0 đến 8) -->
             <div class="grid grid-cols-3 gap-2 max-w-[210px] mx-auto mb-3">
                 <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 0)"></button>
                 <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 1)"></button>
@@ -115,7 +115,10 @@
             currentPlayer = "X";
             isGameActive = true;
             document.getElementById("status").innerText = "Player X's turn";
-            document.querySelectorAll(".cell").forEach(button => button.innerText = "");
+            document.querySelectorAll(".cell").forEach(button => {
+                button.innerText = "";
+                button.classList.remove("text-indigo-400", "text-emerald-400");
+            });
         }
     </script>
 </body>
