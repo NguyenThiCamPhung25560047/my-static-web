@@ -35,7 +35,7 @@
             <h2 class="text-lg font-semibold text-amber-400 mb-2">🎮 Play Tic-Tac-Toe</h2>
             <p id="status" class="text-xs text-slate-300 mb-3 font-medium">Player X's turn</p>
             
-            <!-- Game Board (Đã sửa lại đúng thứ tự ô từ 0 đến 8) -->
+            <!-- Game Board -->
             <div class="grid grid-cols-3 gap-2 max-w-[210px] mx-auto mb-3">
                 <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 0)"></button>
                 <button class="cell h-16 bg-slate-800 rounded-lg text-2xl font-bold border border-slate-700 text-indigo-400" onclick="makeMove(this, 1)"></button>
@@ -53,13 +53,6 @@
             </button>
         </div>
 
-        <!-- Status Tag -->
-        <div>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-emerald-500/10 text-emerald-400 font-medium border border-emerald-500/20">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                Ready for Vercel Deployment
-            </span>
-        </div>
     </div>
 
     <!-- Game Logic JavaScript -->
